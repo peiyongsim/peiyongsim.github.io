@@ -62,7 +62,7 @@
                         </li>
                         <li>
                             <a href="https://github.com/peiyongsim">
-                                <i class="fa fa-github-alt"></i>
+                                <i class="fa fa-github"></i>
                                 GitHub
                             </a>
                         </li>
@@ -85,32 +85,30 @@
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
-
-        <div id="main-content" class ="container-fluid">
-            <a href="#menu-toggle" class="btn" id="menu-toggle">☰</a>
-            <div class="row text-center" id="profile">
-                <img src="img/pysim-logo.png" class="img-rounded"><br>
-                <h1> Engineer @ Berkeley </h1>
-            </div>
-            <div class="row">
-                <div class="col-xs-6 text-center" id="project-tile">
-                <a href="projects.html">
-                        <button type="button" class="btn btn-primary btn-lg outline">Projects
-                        </button>
-                    </a>
+        <div id="page-content-wrapper">
+            <div id="main-content" class ="container-fluid">
+                <a href="#menu-toggle" class="btn" id="menu-toggle">☰</a>
+                <div class="row text-center" id="profile">
+                    <img src="img/pysim-logo.png" class="img-responsive text-center"><br>
+                    <h1> Engineer @ Berkeley </h1>
                 </div>
-                <div class="col-xs-6 text-center" id="resume-tile">
-                    <a href="resume.pdf">
-                        <button type="button" class="btn btn-primary btn-lg outline">Resume
-                        </button>
-                    </a>
+                <div class="row" id="tiles">
+                    <div class="col-xs-6 text-center" id="project-tile">
+                    <a href="projects.html">
+                            <button type="button" class="btn btn-primary btn-lg outline">Projects
+                            </button>
+                        </a>
+                    </div>
+                    <div class="col-xs-6 text-center" id="resume-tile">
+                        <a href="resume.pdf">
+                            <button type="button" class="btn btn-primary btn-lg outline">Resume
+                            </button>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <br>
-        </div>
-        <br>
         <!-- /#page-content-wrapper -->
-
+        </div>
     </div>
     <!-- /#wrapper -->
 
@@ -122,6 +120,10 @@
 
     <!-- Menu Toggle Script -->
     <script>
+    // $(document).ready(function() {
+    //     var scale = 'scale(1)';
+    //     document.body.style.webkitTransform = scale;
+    // });
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
