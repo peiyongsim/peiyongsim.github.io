@@ -67,3 +67,19 @@
 #tiles {
     margin-bottom: 80px;
 }
+
+#proj-logo {
+    margin-right: 10px; 
+}
+
+figcaption {
+    font-size: 8pt;
+    font-family: "Times New Roman";
+    text-align: center;
+}
+
+figure {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
