@@ -42,6 +42,10 @@
         margin-bottom: 20px;
     }
 
+    #current_work {
+        margin-bottom: 20px
+    }
+
     </style>
 
 </head>
@@ -111,11 +115,13 @@
                         <strong> Technology stack: Flask, SQLAlchemy, PostgreSQL, JavaScript, jQuery, HTML, Bootstrap CSS, Heroku Cloud </strong>
                         <br>
                         <br>
-						Try a live demo <a href="http://pychat.pysim.me" target="_blank"> here </a>
+						Try a live demo <a href="http://pychat.pysim.me" target="_blank"> here 
+                        </a>
 					</div>
                 </div>
                 <div class="row" id="desc">
-                    <h3> Description </h3>
+                    <hr>
+                    <h4> Introduction </h4>
                     <p>
                     PyChat is a full stack web application that supports user management, AI chatbot and a spreadsheet calculator.
                     </p>
@@ -129,8 +135,10 @@
                             <figcaption>Fig: Welcome page</figcaption>
                         </figure>
                     </p>
+                    <hr>
+                    <h4> Sign in, Registration and Security </h4>
                     <p>
-                        To prevent (easier) DDOS attacks, PyChat requires users to provide (and confirm) their emails. It maintains a database of user information and allows for password change and reset. Users can also edit their profiles.
+                        To prevent (easier) DDOS attacks, PyChat requires users to provide (and confirm) their emails through a confirmation code, which expires after an hour. Users are also protected from Cross Site Request Forgery (CSRF), which occurs when a malicious website sends requests to a different website on which the victim is logged in. It maintains a database of user information and allows for password change and reset. Users can also edit their profiles.
                     </p>
                     <p id="figs">
                         <figure class="col-sm-6">
@@ -142,6 +150,8 @@
                             <figcaption>Fig: Email confirmation</figcaption>
                         </figure>
                     </p>
+                    <hr>
+                    <h4> Instant Messaging </h4>
                     <p>
                     After signing up, users can chat with one another by creating chatrooms. Unfortunately, the realtime chat may have high latency as I'm not purchasing extra computing units from Heroku. The code can, however, be downloaded from GitHub and run on <code>localhost</code>.
                     </p>
@@ -156,8 +166,7 @@
                         </figure>
                     </p>
                     <p>
-                    If nobody is available, they can instead chat with an AI bot courtesy of Chatterbot. <br>
-                    Current work: Implementing RESTful API and learning how to host the application on a Linux box (probably some virtual private server).
+                    If nobody is available, they can instead chat with an AI bot courtesy of Chatterbot.
                     </p>
                     <p id="figs">
                         <figure class="col-sm-6">
@@ -168,6 +177,11 @@
                             <img src="img/pychat-profile.png" height="200", width="300">
                             <figcaption>Fig: User profile editing</figcaption>
                         </figure>
+                    </p>
+                    <hr>
+                    <h4> Current Work </h4>
+                    <p id="current_work">
+                    Implementing RESTful API to give clients access to their chatroom history. Like any good RESTful web services, PyChat needs to protect its information and ensures that it is not given to unauthorized users.
                     </p>
                 </div>
             </div>
