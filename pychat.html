@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="Pei Yong Sim personal webpage">
+    <meta name="keywords" content="Pei Yong Sim,PyChat,Machine Learning">
+    <meta name="author" content="Pei Yong Sim">
+
+    <link rel="shortcut icon" href="img/pysim-logo.png">
+
+    <title>PyChat</title>
+
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+    figcaption {
+    font-size: 10pt;
+    font-family: "Times New Roman";
+    text-align: center;
+    color: blue;
+    }
+
+    figure {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    #current_work {
+        margin-bottom: 20px
+    }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="index.html">
+                        <img src="img/pysim-logo.png" width="50">
+                        Pei Yong Sim
+                    </a>
+                </li>
+                <li>
+                    <a href="about.html">About</a>
+                </li>
+                <li>
+                    <a href="projects.html">Projects</a>
+                </li>
+                <li>
+                    <a href="blog.html">Blog</a>
+                </li>
+                <li>
+                    <a href="resume.pdf">Resume</a>
+                </li>
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contact Me <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="mailto:py@pysim.me">
+                                <i class="fa fa-envelope"></i>
+                                py@pysim.me
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/peiyongsim">
+                                <i class="fa fa-github"></i>
+                                GitHub
+                            </a>
+                        </li>
+                        <li>
+                            <a href="tel:8314283525">
+                                <i class="fa fa-phone"></i>
+                                831-428-3525
+                            </a>
+                        </li>
+                    </a>
+                </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid" id="pychat-main">
+                <div class="row" id="header">
+                    <a href="#menu-toggle" class="btn" id="menu-toggle">☰</a>
+                    <h2> PyChat </h2>
+                    <hr>
+					<div>
+                        <strong> Technology stack: Flask, SQLAlchemy, PostgreSQL, JavaScript, jQuery, HTML, Bootstrap CSS, Heroku Cloud </strong>
+                        <br>
+                        <br>
+						Try a live demo <a href="http://pychat.pysim.me" target="_blank"> here 
+                        </a>
+					</div>
+                </div>
+                <div class="row" id="desc">
+                    <hr>
+                    <h4> Introduction </h4>
+                    <p>
+                    PyChat is a full stack web application that supports user management, AI chatbot and a spreadsheet calculator.
+                    </p>
+                    <p id="figs">
+                        <figure class="col-sm-6">
+                            <img src="img/pychat-home.png" height="200">
+                            <figcaption>Fig: PyChat Sign In page</figcaption>
+                        </figure>
+                        <figure class="col-sm-6">
+                            <img src="img/pychat-main.png" height="200">
+                            <figcaption>Fig: Welcome page</figcaption>
+                        </figure>
+                    </p>
+                    <hr>
+                    <h4> Sign in, Registration and Security </h4>
+                    <p>
+                        To prevent (easier) DDOS attacks, PyChat requires users to provide (and confirm) their emails through a confirmation code, which expires after an hour. Users are also protected from Cross Site Request Forgery (CSRF), which occurs when a malicious website sends requests to a different website on which the victim is logged in. It maintains a database of user information and allows for password change and reset. Users can also edit their profiles.
+                    </p>
+                    <p id="figs">
+                        <figure class="col-sm-6">
+                            <img src="img/pychat-reset.png" height="200">
+                            <figcaption>Fig: Resetting your password</figcaption>
+                        </figure>
+                        <figure class="col-sm-6">
+                            <img src="img/pychat-email.png" height="200">
+                            <figcaption>Fig: Email confirmation</figcaption>
+                        </figure>
+                    </p>
+                    <hr>
+                    <h4> Instant Messaging </h4>
+                    <p>
+                    After signing up, users can chat with one another by creating chatrooms. Unfortunately, the realtime chat may have high latency as I'm not purchasing extra computing units from Heroku. The code can, however, be downloaded from GitHub and run on <code>localhost</code>.
+                    </p>
+                    <p id="figs">
+                        <figure class="col-sm-6">
+                            <img src="img/pychat-chatroom1.png" height="200", width="250">
+                            <figcaption>Fig: Pysim notified when test enter</figcaption>
+                        </figure>
+                        <figure class="col-sm-6">
+                            <img src="img/pychat-chatroom2.png" height="200", width="250">
+                            <figcaption>Fig: Test is notified when Pysim leaves</figcaption>
+                        </figure>
+                    </p>
+                    <p>
+                    If nobody is available, they can instead chat with an AI bot courtesy of Chatterbot.
+                    </p>
+                    <p id="figs">
+                        <figure class="col-sm-6">
+                            <img src="img/pychat-ai.png" height="200", width="250">
+                            <figcaption>Fig: AI Bot</figcaption>
+                        </figure>
+                        <figure class="col-sm-6">
+                            <img src="img/pychat-profile.png" height="200", width="300">
+                            <figcaption>Fig: User profile editing</figcaption>
+                        </figure>
+                    </p>
+                    <hr>
+                    <h4> Current Work </h4>
+                    <p id="current_work">
+                    Implementing RESTful API to give clients access to their chatroom history. Like any good RESTful web services, PyChat needs to protect its information and ensures that it is not given to unauthorized users.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+</body>
+
+</html>
