@@ -38,7 +38,7 @@
   font-weight: bold;
 }
 .image-block {
-    border: 3px solid white ;
+    border: 3px solid gray ;
     background-color: black;
     padding: 0px;    
     margin: 0px;
@@ -52,9 +52,11 @@
     font-weight: normal;
     font-size: 19px;
     padding-top: 150px;
+
     background-color: rgba(3,3,3,0.0);
     color: rgba(6,6,6,0.0);
 }
+
 .image-block:hover > p {
     background-color: rgba(3,3,3,0.5);    
     color: white;    
