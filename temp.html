@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" />
+    <style type="text/css">
+      .container {
+        margin-top: 6rem;
+        margin-bottom: 3rem;
+        max-width: 800px;
+      }
+    </style>
+  </head>
+  <body>
+      <div class="container">
+        <h3 class="title">Web Client</h3>
+        <div class="form row">
+          <div class="six columns">
+            <label>Key</label>
+            <input name="key" class="u-full-width" type="text" placeholder="Key" />
+          </div>
+          <div class="six columns">
+            <label>Value</label>
+            <input name="value" class="u-full-width" type="text" placeholder="Value" />
+          </div>
+          <hr />
+          <div style="text-align: center;">
+            <button data-method="REGISTER" class="leader-only form-submit button" style="display: none;">REGISTER</button>
+            <button data-method="COMMIT" class="follower-only form-submit button" style="display: none;">COMMIT</button>
+            <button data-method="ABORT" class="follower-only form-submit button" style="display: none;">ABORT</button>
+            <button data-method="GET" class="form-submit button">GET</button>
+            <button data-method="PUT" class="form-submit button">PUT</button>
+            <button data-method="DELETE" class="form-submit button">DELETE</button>
+          </div>
+        </div>
+      </div>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  </body>
+</html>
