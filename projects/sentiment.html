@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="Pei Yong Sim personal webpage">
+    <meta name="keywords" content="Pei Yong Sim,PyChat,Machine Learning">
+    <meta name="author" content="Pei Yong Sim">
+
+    <link rel="shortcut icon" href="../img/pysim-logo.png">
+
+    <title>PySentiment</title>
+
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+    #proj-logo {
+        margin-right: 10px; 
+    }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../index.html">
+                        <img src="../img/pysim-logo.png" width="50">
+                        Pei Yong Sim
+                    </a>
+                </li>
+                <li>
+                    <a href="../about.html">About</a>
+                </li>
+                <li>
+                    <a href="../projects.html">Projects</a>
+                </li>
+                <li>
+                    <a href="../blog.html">Blog</a>
+                </li>
+                <li>
+                    <a href="../resume.pdf">Resume</a>
+                </li>
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contact Me <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="mailto:py@pysim.me">
+                                <i class="fa fa-envelope"></i>
+                                py@pysim.me
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/peiyongsim">
+                                <i class="fa fa-github"></i>
+                                GitHub
+                            </a>
+                        </li>
+                        <li>
+                            <a href="tel:8314283525">
+                                <i class="fa fa-phone"></i>
+                                831-428-3525
+                            </a>
+                        </li>
+                    </a>
+                </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <a href="#menu-toggle" class="btn" id="menu-toggle">☰</a>
+                    <h2> PySentiment </h2>
+                    <hr>
+                    <div>
+                        <strong> Technology stack: Flask, SQLAlchemy, PostgreSQL, HTML, Bootstrap CSS, Heroku Cloud </strong>
+                        <br>
+                        <br>
+                        Try a live demo <a href="http://sentiment.pysim.me" target="_blank"> here 
+                        </a>
+                    </div>
+                    <hr>
+                    <div class="clearfix">
+                    	<img src="../img/sentiment.png" class="pull-left" width="25%" id="proj-logo">
+                        <p>
+						The machine learning application is written in Python and uses robust libraries including, but not limited to, pandas, sklearn, numpy and nltk. 
+
+						<br>
+						<br>
+						Fundamentally, it is a logistic regression model trained on IMDb movie review dataset that attempts to correctly classify user-input reviews into positive and negative reviews. 
+
+						<br>
+						<br>
+						The classifier is then serialized (using Pickle) and deployed to the website created using the Flask micro web-development framework. On the server, it's deserialized and then it's ready start predicting user sentiments. 
+
+						<br>
+						<br>
+						The user then has the opportunity to tell the classifier whether or not the review has been correctly classified. This information (a (review_text, correct_label) tuple) is then stored in the backend built using PostgreSQL. Every fortnight, data from the database is used to update the classifier in the hopes of increasing its accuracy. 
+
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+</body>
+
+</html>

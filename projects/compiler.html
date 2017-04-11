@@ -12,16 +12,16 @@
 
     <link rel="shortcut icon" href="img/pysim-logo.png">
 
-    <title>PySentiment</title>
+    <title>SQL Database Management System</title>
 
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/simple-sidebar.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,8 +30,9 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-    #proj-logo {
-        margin-right: 10px; 
+
+    #proj-desc {
+        text-align: justify;
     }
     </style>
 
@@ -45,22 +46,22 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="index.html">
-                        <img src="img/pysim-logo.png" width="50">
+                    <a href="../index.html">
+                        <img src="../img/pysim-logo.png" width="50">
                         Pei Yong Sim
                     </a>
                 </li>
                 <li>
-                    <a href="about.html">About</a>
+                    <a href="../about.html">About</a>
                 </li>
                 <li>
-                    <a href="projects.html">Projects</a>
+                    <a href="../projects.html">Projects</a>
                 </li>
                 <li>
-                    <a href="blog.html">Blog</a>
+                    <a href="../blog.html">Blog</a>
                 </li>
                 <li>
-                    <a href="resume.pdf">Resume</a>
+                    <a href="../resume.pdf">Resume</a>
                 </li>
                 <li>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contact Me <b class="caret"></b></a>
@@ -96,33 +97,22 @@
             <div class="container-fluid">
                 <div class="row">
                     <a href="#menu-toggle" class="btn" id="menu-toggle">☰</a>
-                    <h2> PySentiment </h2>
+                    <h2> Compilers and Programming Languages </h2>
                     <hr>
                     <div>
-                        <strong> Technology stack: Flask, SQLAlchemy, PostgreSQL, HTML, Bootstrap CSS, Heroku Cloud </strong>
+                        <strong> Technology stack: Java, ANTLR (for parser generator), Atrai (for pattern matching and transforming Untyped Trees) Maven (Build) and Intellij (IDE) </strong>
                         <br>
                         <br>
-                        Try a live demo <a href="http://sentiment.pysim.me" target="_blank"> here 
+                        Try a live demo <a href="http://alexreinking.com/cs164/index.php" target="_blank">here</a>.
                         </a>
                     </div>
                     <hr>
-                    <div class="clearfix">
-                    	<img src="img/sentiment.png" class="pull-left" width="25%" id="proj-logo">
+                    <div id="proj-desc">
                         <p>
-						The machine learning application is written in Python and uses robust libraries including, but not limited to, pandas, sklearn, numpy and nltk. 
+                        It is amazing that after this course, I will be able to design my own programming language!
+                        </p>
 
-						<br>
-						<br>
-						Fundamentally, it is a logistic regression model trained on IMDb movie review dataset that attempts to correctly classify user-input reviews into positive and negative reviews. 
-
-						<br>
-						<br>
-						The classifier is then serialized (using Pickle) and deployed to the website created using the Flask micro web-development framework. On the server, it's deserialized and then it's ready start predicting user sentiments. 
-
-						<br>
-						<br>
-						The user then has the opportunity to tell the classifier whether or not the review has been correctly classified. This information (a (review_text, correct_label) tuple) is then stored in the backend built using PostgreSQL. Every fortnight, data from the database is used to update the classifier in the hopes of increasing its accuracy. 
-
+                        <p>
                         </p>
                     </div>
 
@@ -135,10 +125,10 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="../js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
 
     <!-- Menu Toggle Script -->
     <script>
