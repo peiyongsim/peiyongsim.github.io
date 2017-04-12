@@ -34,6 +34,15 @@
     #proj-desc {
         text-align: justify;
     }
+
+    #proj-img {
+        text-align: center;
+        height: 300px;
+    }
+
+    #proj-desc p {
+        margin: 10px;
+    }
     </style>
 
 </head>
@@ -108,8 +117,23 @@
                     <hr>
                     <div id="proj-desc">
                         <p>
-						Have you ever wondered what's behind every SQL statements (such as <code>SELECT * FROM TABLE;</code>)? In this section, I will describe an overview of a traditional database management system. I am currently building one, so I thought it'd be good idea to write a post about it.
-
+						Have you ever wondered what's behind every SQL statement (such as <code>SELECT * FROM TABLE;</code>)? In this section, I will describe an overview of a traditional database management system. I am currently building one, so I thought it'd be good idea to write a post about it.
+                        </p>
+                        <p>
+                           <img src="../img/dbms-architecture.png" class="img-responsive" id="proj-img" alt="DBMS Architecture">
+                           <figcaption>Fig: DBMS Architecture</figcaption>
+                        </p>
+                        <p>
+                        Now, I will briefly describe each modular component in the architecture.
+                        </p>
+                        <p>
+                            <img src="../img/sql-table.png" class="img-responsive">
+                        </p>
+                        <p>
+                            A table such as the one above is made up of rows, which we usually call records. We need to store the table somehow. Normally, a table is organized as groups of pages in a logical file. As tables can grow arbitrarily big, a table can span multiple pages.
+                        </p>
+                        <p>
+                            TBC...
                         </p>
                     </div>
 
