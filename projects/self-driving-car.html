@@ -31,6 +31,10 @@
     <![endif]-->
     <style>
 
+    footer {
+        margin-top: 40px;
+    }
+
     #car-img {
         text-align: center;
     }
@@ -101,15 +105,20 @@
             <div class="container-fluid">
                 <div class="row">
                     <a href="#menu-toggle" class="btn" id="menu-toggle">☰</a>
-                    <h2> Self-Driving Agent </h2>
+                    <h2 id="proj-title"> Self-Driving Agent </h2>
                     <hr>
                     <div>
+                        <strong>Programming Language: Python; Animation: PyGame</strong>
                         <p> Code available on GitHub <a href="https://github.com/peiyongsim/smartcab" target="_blank"> here</a>.
                         <br>
+                        <br>
+                        <ul><a href="#randAI">Random agent vs A.I.</a></ul>
+                        <ul><a href="#psych">Relation with Psychology</a></ul>
                         </a>
                     </div>
                     <hr>
                     <div id="proj-desc">
+                        <h3 id="randAI">Random agent vs A.I.</h3>
                         <p>
                             After taking an artificial intelligence course, I decided to try my hands on training a self-driving car on a simulated environment.
                         </p>
@@ -123,20 +132,35 @@
                             The results below show that if the agent acted randomly, it would almost always fail to get to its destination! For instance, in the GIF below, you can see that the agent <strong>(white car)</strong> attempts to move forward even when the light is red! How dangerous!
                         </p>
                         <p id="car-img">
-                            <img src="../img/fail-car.gif">
+                            <img src="../img/fail-car.gif" class="img-responsive">
                         </p>
                         <br>
                         <p>
                             But the intelligent agent almost always achieves its goal, safely!
                         </p>
                         <p id="car-img">
-                            <img src="../img/rl-car.gif">
+                            <img src="../img/rl-car.gif" class="img-responsive">
                         </p>
+                        <h3 id="psych">Relation with Psychology</h3>
+                        <p>
+                            In Psychology, reinforcement is defined as a process of increasing the likelihood an organism to manifest a particular behavior when given a set of stimuli. For instance, rewarding oneself with a piece of chocolate after a grueling workout is a type of positive reinforcement. It reinforces workout with chocolate and hence one is more likely to workout in the future. 
+                        </p>
+                        <p>
+                            The same notion is applied to A.I. in training a self-driving car/agent. The goal of the agent is to <strong>learn</strong> how to drive without violating any traffic rules. In the training phase, when it violates a rule, it is heavily penalized. In the process of reaching its destination, if it <strong> correctly obeys </strong> a rule, it is <strong>rewarded</strong>. As soon as it reaches its destination, it is given a much bigger reward.
+                        </p>
+                        <p>
+                            With enough <strong>exploration</strong>, <strong>exploitation</strong>, it will <strong>learn</strong> and <strong>remember</strong> (using computer memory storage) the optimal policy (way to act in the environment).
+                        </p>
+
                     </div>
 
                 </div>
             </div>
+                    <footer>
+         <a href="#proj-title">Back to Top</a>
+        </footer>
         </div>
+
         <!-- /#page-content-wrapper -->
 
     </div>
