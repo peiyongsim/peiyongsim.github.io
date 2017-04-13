@@ -29,6 +29,25 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+            ol {
+                margin-left: 20px;
+        display: list-item;
+    }
+        ul {
+            margin-left: 20px;
+        display: list-item;
+    }
+
+    footer {
+        margin-top: 40px;
+    }
+
+    #ack {
+        font-size: 10px;
+    }
+
+    </style>
 
 </head>
 
@@ -91,15 +110,47 @@
             <div class="container-fluid">
                 <div class="row">
                     <a href="#menu-toggle" class="btn" id="menu-toggle">☰</a>
-                    <h1>Projects</h1>
-                    <div> The following are some of the projects I have been involved in. More can be found on my <a href="https://github.com/peiyongsim">GitHub </a> profile. </div>
-                    <br>
-                    <p> The rights of the images below belong to their respective owners. </p>
-                    <br>
-     				<iframe src="https://ghbtns.com/github-btn.html?user=peiyongsim&type=follow&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
-
-                    <br>
-                    <h3> Web applications </h3>
+                    <h1 id="page-title">Projects</h1>
+                    <hr>
+                    <div> The following are some of the projects I have been involved in. More can be found on my <a href="https://github.com/peiyongsim">GitHub </a> profile. 
+                    </div>
+                    <div>
+                    <iframe src="https://ghbtns.com/github-btn.html?user=peiyongsim&type=follow&count=true" frameborder="0" scrolling="0" width="170px" height="25px"></iframe>
+                    </div>
+                    <ol>
+                        <a href="#webapp">Web Applications</a>
+                        <ul>PyChat</ul>
+                        <ul>Sentiment Analysis</ul>
+                        <ul>cccPlan</ul>
+                    </ol>
+                    <ol>
+                        <a href="#ml">Machine Learning</a>
+                        <ul>Supply Chain Management</ul>
+                        <ul>Neural Network</ul>
+                        <ul>SONG</ul>
+                        <ul>Netflix</ul>
+                    </ol>
+                    <ol>
+                        <a href="#sys">Systems</a>
+                        <ul>NoSQL Key Value Store</ul>
+                        <ul>SQL Database Management System</ul>
+                        <ul>Compiler</ul>
+                    </ol>
+                    <ol>
+                        <a href="#ai">Artificial Intelligence</a>
+                        <ul>Self-Driving Car</ul>
+                        <ul>A.I. Pacman</ul>
+                        <ul>SIXT33N</ul>
+                    </ol>
+                    <ol>
+                        <a href="#network">Networking</a>
+                        <ul>WAN Optimizer</ul>
+                        <ul>Routing</ul>
+                    </ol>
+                    <p id="ack"> * The rights of the images below belong to their respective owners. 
+                    </p>
+                    <hr>
+                    <h3 id="webapp"> Web applications </h3>
                     <a href="projects/pychat.html">
                     <div class="image-block col-sm-4" style="background: url(img/chat.jpg) no-repeat center top;background-size:contain;background-color: black;">
             			<p> PyChat </p>
@@ -115,7 +166,7 @@
                         <p> cccPlan </p>
                     </div>
                     </a>
-                    <h3> Machine Learning </h3>
+                    <h3 id="ml"> Machine Learning </h3>
                     <a href="projects/customer-segments.html" target="_blank">
                     <div class="image-block col-xs-6" style="background: url(img/scm.jpg) no-repeat center top;background-size:contain; background-color: black;">
                         <p> Supply Chain Management (SCM) </p>
@@ -137,7 +188,7 @@
                     </div>
                     </a>
                     </a>
-                    <h3> Systems </h3>
+                    <h3 id="sys"> Systems </h3>
                     <a href="https://github.com/peiyongsim/KeyValueStore" target="_blank">
                     <div class="image-block col-sm-4" style="background: url(img/nosql.png) no-repeat center top;background-size:contain;background-color: black;">
                         <p> NoSQL KV Store </p>
@@ -153,9 +204,9 @@
                         <p> Compiler </p>
                     </div>
                     </a>
-        			<h3> Artificial Intelligence </h3>
+        			<h3 id="ai"> Artificial Intelligence </h3>
                     <a href="projects/self-driving-car.html" target="_blank">
-                    <div class="image-block col-sm-4" style="background: url(img/selfCar.gif) no-repeat center top;background-size:contain; background-color: black;">
+                    <div class="image-block col-sm-4" style="background: url(img/rl-car.gif) no-repeat center top;background-size:contain; background-color: black;">
                         <p> Self-Driving Car </p>
                     </div>
                     </a>
@@ -169,7 +220,7 @@
             			<p> SIXT33N </p>
         			</div>
         			</a>
-        			<h3> Networking </h3>
+        			<h3 id="network"> Networking </h3>
         			<a href="https://github.com/peiyongsim/berkeley_cs_courses/tree/master/cs168/proj4" target="_blank">
                     <div class="image-block col-sm-6" style="background: url(img/wan.jpg) no-repeat center top;background-size:contain; background-color: black;">
             			<p> WAN Optimizer </p>
@@ -182,6 +233,9 @@
         			</a>
                 </div>
             </div>
+                                <footer>
+         <a href="#page-title">Back to Top</a>
+        </footer>
         </div>
         <!-- /#page-content-wrapper -->
 
