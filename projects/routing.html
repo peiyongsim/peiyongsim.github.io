@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="Pei Yong Sim personal webpage">
+    <meta name="keywords" content="Pei Yong Sim,PyChat,Machine Learning">
+    <meta name="author" content="Pei Yong Sim">
+
+    <link rel="shortcut icon" href="img/pysim-logo.png">
+
+    <title>Routing</title>
+
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+
+    ul {
+        margin-left: 20px;
+        display: list-item;
+    }
+
+    footer {
+        margin-top: 40px;
+    }
+
+    #proj-img {
+max-width: 100%; 
+display:block; 
+height: auto;
+    }
+
+    #proj-desc {
+        text-align: justify;
+    }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../index.html">
+                        <img src="../img/pysim-logo.png" width="50">
+                        Pei Yong Sim
+                    </a>
+                </li>
+                <li>
+                    <a href="../about.html">About</a>
+                </li>
+                <li>
+                    <a href="../projects.html">Projects</a>
+                </li>
+                <li>
+                    <a href="../blog.html">Blog</a>
+                </li>
+                <li>
+                    <a href="../resume.pdf">Resume</a>
+                </li>
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contact Me <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="mailto:py@pysim.me">
+                                <i class="fa fa-envelope"></i>
+                                py@pysim.me
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/peiyongsim">
+                                <i class="fa fa-github"></i>
+                                GitHub
+                            </a>
+                        </li>
+                        <li>
+                            <a href="tel:8314283525">
+                                <i class="fa fa-phone"></i>
+                                831-428-3525
+                            </a>
+                        </li>
+                    </a>
+                </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <a href="#menu-toggle" class="btn" id="menu-toggle">☰</a>
+                    <h2 id="proj-title">Routing</h2>
+                    <hr>
+                    <div>
+                        <strong>Programming Language: Python</strong>
+                        <strong>Simulator: NetVis</strong>
+                        <p>Code available on GitHub <a href="https://github.com/peiyongsim/routing">here</a>.</p>
+                        <br>
+                        <ul><a href="#intro">Introduction: The Internet's Task</a></ul>
+                        <ul><a href="#eff">Efficient and Scalable: Messages we sent to another person appear instantaneously</a></ul>
+                        <ul><a href="#fault">Fault Tolerant: (Facebook) We always see the blue tick mark!</a></ul>
+                    </div>
+                    <hr>
+                    <div id="proj-desc">
+                        <h3 id="intro">Introduction</h3>
+                        <p>
+                        With abstraction, people using the internet seldom have to worry about their messages not reaching their recipients. Users of the internet are also able to enjoy high speed services without much worry. In this post, I will attempt to look what happens behind the scenes (say when a person tries to send a message to another person on the other side of the world).
+                        </p>
+                        <p>
+                        First, it is important to understand that everything has to be encoded as <strong>bits</strong>, which are in turn encoded into network <strong>packets</strong>.
+                        </p>
+                        <p>
+                        The core task of the internet is to deliver packets between applications on different hosts (computers). This task involves using routers and links.
+                        </p>
+                        <p>
+                            In the picture below, the packets are the yellow objects. The thing on which the packets traverse is called a link. The other entities (h1, s1, etc) are hosts. 
+                        </p>
+                        <p id="proj-img">
+                            <img src="../img/dv_routing.png" class="img-responsive">
+                        </p>
+                        <h3 id="dvrouter">Distance Vector Router</h3>
+                        <p>
+                            The fundamental question is: how do we deliver packets reliably? After all, packets can be dropped along the way (buffers in router can overflow, links can garble packets, etc).
+                        </p>
+                        <p>
+                            On a high level, each distance vector router stores information about distances to each destination (other routers/hosts).
+                        </p>
+                        <h3 id="eff">Efficient and Scalable</h3>
+                        <p>
+                            Since each router knows the distances to each of its neighbors, and each of its neighbor's distances to other routers, it can find the shortest routes to all these other routers!
+                        </p>
+                        <p>
+                            Besides, it is scalable as it does not need to know the entire network topology!
+                        </p>
+                        <h3 id="fault">Fault Tolerance</h3>
+                        <p>
+                            To ensure packets always reach their destinations, the network uses a protocol known as Transmission Control Protocol (TCP) which resends lost/corrupted packets until the packets have been acknowledge (ACK'd) by the recipients.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+                    <footer>
+         <a href="#proj-title">Back to Top</a>
+        </footer>
+        </div>
+
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+</body>
+
+</html>
