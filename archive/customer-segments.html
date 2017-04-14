@@ -198,26 +198,26 @@ div#notebook {
 </ul>
 <p>The project is divided into the following parts:</p>
 <ul>
-<li><a href="#explore">Data Exploration</a><ul>
-<li><a href="#relevance">Feature Relevance (Supervised Regression Learner)</a></li>
+<li>Data Exploration<ul>
+<li>Feature Relevance (Supervised Regression Learner)</li>
 </ul>
 </li>
-<li><a href="#preprocess">Data Preprocessing</a><ul>
-<li><a href="#scaling">Feature Scaling (Box-Cox test)</a></li>
-<li><a href="#outlier">Outlier Detection (<a href="http://datapigtechnologies.com/blog/index.php/highlighting-outliers-in-your-data-with-the-tukey-method/">Tukey's Method</a>) and Removal</a></li>
-<li><a href="#pca">PCA to discover feature that maximizes variance</a></li>
-<li><a href="#dimred">Dimensionality Reduction using PCA to reduce complexity of the problem</a></li>
+<li>Data Preprocessing<ul>
+<li>Feature Scaling (Box-Cox test)</li>
+<li>Outlier Detection (<a href="http://datapigtechnologies.com/blog/index.php/highlighting-outliers-in-your-data-with-the-tukey-method/">Tukey's Method</a>) and Removal</li>
+<li>PCA to discover feature that maximizes variance</li>
+<li>Dimensionality Reduction using PCA to reduce complexity of the problem</li>
 </ul>
 </li>
-<li><a href="#cluster">Clustering</a><ul>
-<li><a href="#clusteringmethods">Gaussian Mixture Model and KMeans</a></li>
-<li><a href="#hidden">Identify Customer Segments hidden in the data</a></li>
-<li><a href="#viz">Cluster Visualization</a></li>
+<li>Clustering<ul>
+<li>Gaussian Mixture Model and KMeans</li>
+<li>Identify Customer Segments hidden in the data</li>
+<li>Cluster Visualization</li>
 </ul>
 </li>
-<li><a href="#conclusion">Conclusion</a><ul>
-<li><a href="#ab">A/B Tests</a></li>
-<li><a href="#efeature">Engineered Feature</a></li>
+<li>Conclusion<ul>
+<li>A/B Tests</li>
+<li>Engineered Feature</li>
 </ul>
 </li>
 </ul>
@@ -271,8 +271,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2>Data Exploration <a name="explore"></h2>
-
+<h2 id="Data-Exploration">Data Exploration<a class="anchor-link" href="#Data-Exploration">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -857,8 +856,7 @@ VcQBa2ZWEQesmVlFHLBmZhVxwJqZVcQBa2ZWEQesmVlF/gUQhUnPNbljQgAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3>Implementation: Feature Relevance <a name="relevance"></h3>
-<p>We are now going to write code to determine if one (or more) of the six product categories is actually relevant for understanding customer purchasing behavior.</p>
+<h3 id="Implementation:-Feature-Relevance">Implementation: Feature Relevance<a class="anchor-link" href="#Implementation:-Feature-Relevance">&#182;</a></h3><p>We are now going to write code to determine if one (or more) of the six product categories is actually relevant for understanding customer purchasing behavior.</p>
 <p>In particular, we will train a supervised regression learner on a subset of the data with one feature removed. Then, we will see how well that model can predict the removed feature.</p>
 
 </div>
@@ -2847,8 +2845,7 @@ hBBC5CAVJiGEEEIIIYTIQSpMQgghhBBCCJHD/wem3b/LVfFn+AAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2>Data Preprocessing <a name="preprocess"></h2>
-<p>In this section, we will create better representation of customers through feature scaling.</p>
+<h2 id="Data-Preprocessing">Data Preprocessing<a class="anchor-link" href="#Data-Preprocessing">&#182;</a></h2><p>In this section, we will create better representation of customers through feature scaling.</p>
 <p>Additionally, we will detect and remove outliers. This step is critical in ensuring the results obtained from our analyses are meaningful.</p>
 
 </div>
@@ -2859,8 +2856,7 @@ hBBC5CAVJiGEEEIIIYTIQSpMQgghhBBCCJHD/wem3b/LVfFn+AAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3>Feature scaling <a name="scaling"></h3>
-<p>If data is not normally distributed, especially if the mean and median vary significantly (indicating a large skew), it is most <a href="http://econbrowser.com/archives/2014/02/use-of-logarithms-in-economics">often appropriate</a> to apply a non-linear scaling — particularly for financial data. One way to achieve this scaling is by using a <a href="http://scipy.github.io/devdocs/generated/scipy.stats.boxcox.html">Box-Cox test</a>, which calculates the best power transformation of the data that reduces skewness. A simpler approach which can work in most cases would be applying the natural logarithm.</p>
+<h3 id="Feature-scaling">Feature scaling<a class="anchor-link" href="#Feature-scaling">&#182;</a></h3><p>If data is not normally distributed, especially if the mean and median vary significantly (indicating a large skew), it is most <a href="http://econbrowser.com/archives/2014/02/use-of-logarithms-in-economics">often appropriate</a> to apply a non-linear scaling — particularly for financial data. One way to achieve this scaling is by using a <a href="http://scipy.github.io/devdocs/generated/scipy.stats.boxcox.html">Box-Cox test</a>, which calculates the best power transformation of the data that reduces skewness. A simpler approach which can work in most cases would be applying the natural logarithm.</p>
 
 </div>
 </div>
@@ -5764,8 +5760,7 @@ jjHGGGOMMSZ0rKFjjDHGGGOMCR1r6BhjjDHGGGNCxxo6xhhjjDHGmNCxho4xxhhjjDEmdP4fgbM1
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3>Outlier Detection <a name="outlier"></h3>
-<p>As mentioned earlier, the presence of outliers can skew results of analyses. Here, we are going to use Tukey's method to identify outliers.</p>
+<h3 id="Outlier-Detection">Outlier Detection<a class="anchor-link" href="#Outlier-Detection">&#182;</a></h3><p>As mentioned earlier, the presence of outliers can skew results of analyses. Here, we are going to use Tukey's method to identify outliers.</p>
 <p>In the method, an outlier step is calculated as 1.5 times the interquartile range and a data point lying beyond the outlier step is considered abnormal.</p>
 <p>Essentially, the code below tries to find data points with extreme (high/low) values.</p>
 
@@ -6445,8 +6440,7 @@ jjHGGGOMMSZ0rKFjjDHGGGOMCR1r6BhjjDHGGGNCxxo6xhhjjDHGmNCxho4xxhhjjDEmdP4fgbM1
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2>Feature Transformation <a name="pca"></h2>
-<p>In this section we will use principal component analysis (PCA) to draw conclusions about the underlying structure of the wholesale customer data.</p>
+<h2 id="Feature-Transformation">Feature Transformation<a class="anchor-link" href="#Feature-Transformation">&#182;</a></h2><p>In this section we will use principal component analysis (PCA) to draw conclusions about the underlying structure of the wholesale customer data.</p>
 <p>Since using PCA on a dataset calculates the dimensions which best maximize variance, we will find which compound combinations of features best describe customers.</p>
 
 </div>
@@ -6931,8 +6925,7 @@ AAAAAElFTkSuQmCC
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3>Dimensionality Reduction <a name="dimred"></h3>
-<p>When using principal component analysis, one of the main goals is to reduce the dimensionality of the data — in effect, reducing the complexity of the problem. Dimensionality reduction comes at a cost: Fewer dimensions used implies less of the total variance in the data is being explained.</p>
+<h3 id="Dimensionality-Reduction">Dimensionality Reduction<a class="anchor-link" href="#Dimensionality-Reduction">&#182;</a></h3><p>When using principal component analysis, one of the main goals is to reduce the dimensionality of the data — in effect, reducing the complexity of the problem. Dimensionality reduction comes at a cost: Fewer dimensions used implies less of the total variance in the data is being explained.</p>
 <p>Because of this, the cumulative explained variance ratio is extremely important for knowing how many dimensions are necessary for the problem.</p>
 <p>Additionally, if a signifiant amount of variance is explained by only two or three dimensions, the reduced data can be visualized afterwards.</p>
 
@@ -7028,8 +7021,7 @@ AAAAAElFTkSuQmCC
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2>Clustering <a name="cluster"></h2>
-<p>We will use this unsupervised learning method to create customer segments. In particular, we can choose between GMM and KMeans.</p>
+<h2 id="Clustering">Clustering<a class="anchor-link" href="#Clustering">&#182;</a></h2><p>We will use this unsupervised learning method to create customer segments. In particular, we can choose between GMM and KMeans.</p>
 <p>Below are some of the tradeoffs to consider:</p>
 <p>Speed/Scalability:</p>
 <ul>
@@ -7052,8 +7044,7 @@ Reason: Since we have reduced dimensionality, we could use GMM to get more accur
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3>Creating Clusters <a name="hidden"></h3>
-<p>Depending on the problem, the number of clusters that we expect to be in the data may already be known. When the number of clusters is not known a priori, there is no guarantee that a given number of clusters best segments the data, since it is unclear what structure exists in the data — if any.</p>
+<h3 id="Creating-Clusters">Creating Clusters<a class="anchor-link" href="#Creating-Clusters">&#182;</a></h3><p>Depending on the problem, the number of clusters that we expect to be in the data may already be known. When the number of clusters is not known a priori, there is no guarantee that a given number of clusters best segments the data, since it is unclear what structure exists in the data — if any.</p>
 <p>However, we can quantify the "goodness" of a clustering by calculating each data point's silhouette coefficient. The silhouette coefficient for a data point measures how similar it is to its assigned cluster from -1 (dissimilar) to 1 (similar). Calculating the mean silhouette coefficient provides for a simple scoring method of a given clustering.</p>
 
 </div>
@@ -7130,8 +7121,7 @@ No. of clusters: 6, Silhouette score: 0.28528388860250026
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3>Cluster Visualization <a name="viz"></h3>
-
+<h3 id="Cluster-Visualization">Cluster Visualization<a class="anchor-link" href="#Cluster-Visualization">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -7905,9 +7895,7 @@ AElFTkSuQmCC
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2>Conclusion <a name="conclusion"></h2>
-<h3>A/B Tests <a name="ab"></h3>
-<p>Companies often run A/B tests when making small changes to their products or services to determine whether that change affects its customers positively or negatively.</p>
+<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h2><h3 id="A/B-Tests">A/B Tests<a class="anchor-link" href="#A/B-Tests">&#182;</a></h3><p>Companies often run A/B tests when making small changes to their products or services to determine whether that change affects its customers positively or negatively.</p>
 <p>Suppose that the wholesale distributor wants to consider changing its delivery service from 5 days a week to 3 days a week, but will only do so if it affects their customers positively.</p>
 <p>Question:  How would you use the customer segments you found above to perform an A/B Test for this change?</p>
 <p>Answer: For each segment, we can randomly divide the customers into control and variation groups. As implied by the names, the customers in the control group will continue to have their products delivered to them 5 days/week; customers in the variation group will get their products 3 days/week. Then, for each segment, we compute the observed significance level, a.k.a the P-value. After determining the threshold, we can conclude that the testing data support the null hypothesis if the P-value is greater than the threshold. If the P-values for both segments exceed the threshold, then, it's plausible to roll out the new delivery service to both segments. But, we can also determine the group that's affected the most from the magnitude of the P-value. The segment with greater P-value gets affected the most.</p>
@@ -7920,8 +7908,7 @@ AElFTkSuQmCC
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3>Engineered Feature <a name="efeature"></h3>
-
+<h3 id="Engineered-Feature">Engineered Feature<a class="anchor-link" href="#Engineered-Feature">&#182;</a></h3>
 </div>
 </div>
 </div>
