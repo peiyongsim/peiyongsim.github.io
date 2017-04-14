@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="Pei Yong Sim personal webpage">
+    <meta name="keywords" content="Pei Yong Sim,PyChat,Machine Learning">
+    <meta name="author" content="Pei Yong Sim">
+
+    <link rel="shortcut icon" href="img/pysim-logo.png">
+
+    <title>WAN Optimizer</title>
+
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+
+    ul {
+        margin-left: 20px;
+        display: list-item;
+    }
+
+    footer {
+        margin-top: 40px;
+    }
+
+    #proj-img {
+max-width: 100%; 
+display:block; 
+height: auto;
+    }
+
+    #proj-desc {
+        text-align: justify;
+    }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../index.html">
+                        <img src="../img/pysim-logo.png" width="50">
+                        Pei Yong Sim
+                    </a>
+                </li>
+                <li>
+                    <a href="../about.html">About</a>
+                </li>
+                <li>
+                    <a href="../projects.html">Projects</a>
+                </li>
+                <li>
+                    <a href="../blog.html">Blog</a>
+                </li>
+                <li>
+                    <a href="../resume.pdf">Resume</a>
+                </li>
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contact Me <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="mailto:py@pysim.me">
+                                <i class="fa fa-envelope"></i>
+                                py@pysim.me
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/peiyongsim">
+                                <i class="fa fa-github"></i>
+                                GitHub
+                            </a>
+                        </li>
+                        <li>
+                            <a href="tel:8314283525">
+                                <i class="fa fa-phone"></i>
+                                831-428-3525
+                            </a>
+                        </li>
+                    </a>
+                </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <a href="#menu-toggle" class="btn" id="menu-toggle">☰</a>
+                    <h2 id="proj-title">WAN Optimzer</h2>
+                    <hr>
+                    <div>
+                        <strong>Programming Language: Python</strong>
+                        <p>Code not made public</p>
+                        <br>
+                        <ul><a href="#intro">Introduction: Enterprises and ISP Cost</a></ul>
+                        <ul><a href="#techniques">WAN Optimizer: Techniques</a></ul>
+                    </div>
+                    <hr>
+                    <div id="proj-desc">
+                        <h3 id="intro">Introduction</h3>
+                        <p>
+                        Enterprises often have multiple locations that they're sending data between, which are connected by a network that the enterprise pays to use. For example, Microsoft has an office in Seattle, and has another office in Mountain View. Microsoft pays for internet service from its internet service provider (ISP) (e.g., ATT) to connect the two locations. Employees at the two offices are likely to send significant data back and forth, and Microsoft has to pay its ISP based on the amount of data transferred.
+                        </p>
+                        <p id="proj-img">
+                            <img src="../img/middlebox_diagram.jpg" class="img-responsive">
+                        </p>
+                        <p>
+                        Enterprises often use WAN optimizers to minimize the amount of data that they have to pay the ISP to transport. A WAN optimizer sits in between clients in one location (e.g., employees in Microsoft's Seattle office) and the wide area network. At other office locations, e.g., in Mountain View, another WAN optimizer sits between the wide area network and hosts at that location:
+                        </p>
+                        <h3 id="techniques">Techniques</h3>
+                        <p>
+                        To reduce the amount of data sent, WAN optimizers simply have to <strong>remember</strong> what data has been sent previously, and use this information to avoid re-sending the same data.
+                        </p>
+                        <p>
+                        The WAN optimizer that sends data will compute the hash of each block of data before sending it, and store a mapping between the hash and the raw data. The receiving WAN optimizer, when it gets raw data, will similarly compute the hash, and store the mapping between the hash and the raw data. Hashes are convenient because they allow both WAN optimizers to compute the same key for the same data, without actually sending the keys between the two WAN optimizers, thus, reducing the amount of data sent!
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+                    <footer>
+         <a href="#proj-title">Back to Top</a>
+        </footer>
+        </div>
+
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+</body>
+
+</html>
