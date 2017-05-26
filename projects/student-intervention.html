@@ -181,22 +181,45 @@ div#notebook {
 <ul>
 <li><strong><a href="#intro">Introduction</a></strong><ul>
 <li><a href="#story">Story/Motivation</a></li>
-<li><a href="#explore">Data Exploration</a></li>
+<li><a href="#explore">Data Exploration</a><ul>
+<li><a href="#stats">Basic Stats</a></li>
+<li><a href="#feature">Feature and Target Columns</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 <ul>
 <li><strong><a href="#clean">Data Cleaning</a></strong><ul>
+<li><a href="#categoricalData">Handling Categorical Data</a><ul>
 <li><a href="#extract">Feature Extraction - One Hot Encoding</a></li>
+</ul>
+</li>
 <li><a href="#split">Split Data into Training and Validation sets</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li><strong><a href="#models">Developing Models</a></strong><ul>
+<li><strong><a href="#models">Developing Models - ML Bonanza!</a></strong><ul>
 <li><a href="#naive">Baseline/Naive model</a></li>
-<li><a href="#logReg">Implementing Logistic Regression from scratch</a></li>
-<li><a href="#others">Other models: SVM, Decision Tree, k-Nearest Neighbors</a></li>
+<li><a href="#classifiers">Aside: 3 Ways to Build Classifier</a></li>
+<li><a href="#logReg">Implementing Logistic Regression from scratch</a><ul>
+<li><a href="#logRegCost">Regularized Cost Function</a></li>
+<li><a href="#gradientDescent">Optimization - Gradient Descent</a></li>
+<li><a href="#logRegPred">Making Predictions</a></li>
+<li><a href="#roc">Selecting Threshold using ROC Curves</a></li>
+<li><a href="#logRegClass">Consolidating into a Python Class</a></li>
+</ul>
+</li>
+<li><a href="#svm">Support Vector Machines (SVM)</a><ul>
+<li><a href="#gaussianKernel">Gaussian kernel</a></li>
+</ul>
+</li>
+<li><a href="#tree">Decision Tree</a></li>
+<li><a href="#knn">Implementing k-Nearest Neighbors from scratch</a><ul>
+<li>When to use kNN</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -204,7 +227,10 @@ div#notebook {
 <li><strong><a href="#bestModel">Choosing the Best Model</a></strong><ul>
 <li><a href="#metric">Model Performance Metrics</a></li>
 <li><a href="#table">Tabular Results</a></li>
-<li><a href="#choice">Reason for Choice</a></li>
+<li><a href="#choice">Reason for Choice</a><ul>
+<li>F1 Score</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -228,7 +254,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[142]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import libraries</span>
@@ -236,6 +262,8 @@ div#notebook {
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="k">import</span> <span class="n">time</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">f1_score</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -254,7 +282,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[143]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">student_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;student-data.csv&quot;</span><span class="p">)</span>
@@ -269,7 +297,7 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[143]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -438,14 +466,13 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong> Basic Statistics </strong></p>
-
+<h4 id="Basic-Statistics-">Basic Statistics <a name="stats" /><a class="anchor-link" href="#Basic-Statistics-">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[144]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">n_students</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -483,6 +510,956 @@ Graduation rate of the class: 67.09%
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Identify-feature-and-target-columns-">Identify feature and target columns <a name="feature" /><a class="anchor-link" href="#Identify-feature-and-target-columns-">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[145]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Extract feature columns</span>
+<span class="n">feature_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">student_data</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="c1"># Extract target column &#39;passed&#39;</span>
+<span class="n">target_col</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Show the list of columns</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Feature columns:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feature_cols</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Target column: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">target_col</span><span class="p">))</span>
+
+<span class="c1"># Separate the data into feature data and target data (X_all and y_all, respectively)</span>
+<span class="n">X_all</span> <span class="o">=</span> <span class="n">student_data</span><span class="p">[</span><span class="n">feature_cols</span><span class="p">]</span>
+<span class="n">y_all</span> <span class="o">=</span> <span class="n">student_data</span><span class="p">[</span><span class="n">target_col</span><span class="p">]</span>
+
+<span class="c1"># Show the feature information by printing the first five rows</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Feature values:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_all</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Feature columns:
+[&apos;school&apos;, &apos;sex&apos;, &apos;age&apos;, &apos;address&apos;, &apos;famsize&apos;, &apos;Pstatus&apos;, &apos;Medu&apos;, &apos;Fedu&apos;, &apos;Mjob&apos;, &apos;Fjob&apos;, &apos;reason&apos;, &apos;guardian&apos;, &apos;traveltime&apos;, &apos;studytime&apos;, &apos;failures&apos;, &apos;schoolsup&apos;, &apos;famsup&apos;, &apos;paid&apos;, &apos;activities&apos;, &apos;nursery&apos;, &apos;higher&apos;, &apos;internet&apos;, &apos;romantic&apos;, &apos;famrel&apos;, &apos;freetime&apos;, &apos;goout&apos;, &apos;Dalc&apos;, &apos;Walc&apos;, &apos;health&apos;, &apos;absences&apos;]
+
+Target column: passed
+
+Feature values:
+  school sex  age address famsize Pstatus  Medu  Fedu     Mjob      Fjob  \
+0     GP   F   18       U     GT3       A     4     4  at_home   teacher   
+1     GP   F   17       U     GT3       T     1     1  at_home     other   
+2     GP   F   15       U     LE3       T     1     1  at_home     other   
+3     GP   F   15       U     GT3       T     4     2   health  services   
+4     GP   F   16       U     GT3       T     3     3    other     other   
+
+    ...    higher internet  romantic  famrel  freetime goout Dalc Walc health  \
+0   ...       yes       no        no       4         3     4    1    1      3   
+1   ...       yes      yes        no       5         3     3    1    1      3   
+2   ...       yes      yes        no       4         3     2    2    3      3   
+3   ...       yes      yes       yes       3         2     2    1    1      5   
+4   ...       yes       no        no       4         3     2    1    2      5   
+
+  absences  
+0        6  
+1        4  
+2       10  
+3        2  
+4        4  
+
+[5 rows x 30 columns]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>Explanation</em>:</p>
+<p>As we can see above, the features (profile) of our students are <strong>non-numeric</strong>. This is a problem because computers can only understand numerical values. Besides, most machine learning algorithms expect numerical data as input.</p>
+<p>Thus, in the section that follows, we are going to preprocess our data so that we can extract as much useful information as possible.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Data-Cleaning-">Data Cleaning <a name="clean" /><a class="anchor-link" href="#Data-Cleaning-">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Handling-Categorical-Data-">Handling Categorical Data <a name="categoricalData" /><a class="anchor-link" href="#Handling-Categorical-Data-">&#182;</a></h3><p>There are two types of categorical features--<strong>ordinal</strong> and <strong>nominal</strong>. The former are values that can be ordered. One such example is shirt sizes (L &gt; M and M &gt; S) On the other hand, the latter are values that do not have any intrinsic ordering, such as shirt color.</p>
+<p>The features in our dataset are all nominal.</p>
+<p>Fortunately, many of them are simply <code>yes</code>/<code>no</code>, e.g. <code>internet</code>. These can be reasonably converted into <code>1</code>/<code>0</code> (binary) values.</p>
+<p>Other columns, like <code>Mjob</code> and <code>Fjob</code>, have more than two values, and are known as <em>categorical variables</em>. The recommended way to handle such a column is to create as many columns as possible values (e.g. <code>Fjob_teacher</code>, <code>Fjob_other</code>, <code>Fjob_services</code>, etc.), and assign a <code>1</code> to one of them and <code>0</code> to all others.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[146]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">preprocess_features</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Preprocesses the student data and converts non-numeric binary variables into</span>
+<span class="sd">        binary (0/1) variables. Converts categorical variables into dummy variables. &#39;&#39;&#39;</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">col_data</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">col_data</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">object</span><span class="p">:</span>
+            <span class="n">col_data</span> <span class="o">=</span> <span class="n">col_data</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">col_data</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">object</span><span class="p">:</span>
+            <span class="n">col_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">col_data</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">=</span> <span class="n">col</span><span class="p">)</span>  
+        <span class="n">output</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">col_data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">output</span>
+
+<span class="n">X_all</span> <span class="o">=</span> <span class="n">preprocess_features</span><span class="p">(</span><span class="n">X_all</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Processed feature columns (</span><span class="si">{}</span><span class="s2"> total features):</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_all</span><span class="o">.</span><span class="n">columns</span><span class="p">),</span> <span class="nb">list</span><span class="p">(</span><span class="n">X_all</span><span class="o">.</span><span class="n">columns</span><span class="p">)))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Processed feature columns (48 total features):
+[&apos;school_GP&apos;, &apos;school_MS&apos;, &apos;sex_F&apos;, &apos;sex_M&apos;, &apos;age&apos;, &apos;address_R&apos;, &apos;address_U&apos;, &apos;famsize_GT3&apos;, &apos;famsize_LE3&apos;, &apos;Pstatus_A&apos;, &apos;Pstatus_T&apos;, &apos;Medu&apos;, &apos;Fedu&apos;, &apos;Mjob_at_home&apos;, &apos;Mjob_health&apos;, &apos;Mjob_other&apos;, &apos;Mjob_services&apos;, &apos;Mjob_teacher&apos;, &apos;Fjob_at_home&apos;, &apos;Fjob_health&apos;, &apos;Fjob_other&apos;, &apos;Fjob_services&apos;, &apos;Fjob_teacher&apos;, &apos;reason_course&apos;, &apos;reason_home&apos;, &apos;reason_other&apos;, &apos;reason_reputation&apos;, &apos;guardian_father&apos;, &apos;guardian_mother&apos;, &apos;guardian_other&apos;, &apos;traveltime&apos;, &apos;studytime&apos;, &apos;failures&apos;, &apos;schoolsup&apos;, &apos;famsup&apos;, &apos;paid&apos;, &apos;activities&apos;, &apos;nursery&apos;, &apos;higher&apos;, &apos;internet&apos;, &apos;romantic&apos;, &apos;famrel&apos;, &apos;freetime&apos;, &apos;goout&apos;, &apos;Dalc&apos;, &apos;Walc&apos;, &apos;health&apos;, &apos;absences&apos;]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Splitting-Data-into-Train-and-Validation-Sets-">Splitting Data into Train and Validation Sets <a name="split" /><a class="anchor-link" href="#Splitting-Data-into-Train-and-Validation-Sets-">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[147]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="k">import</span> <span class="n">train_test_split</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_all</span><span class="p">,</span> <span class="n">y_all</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[148]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_train_cleaned</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()</span>
+<span class="n">X_test_cleaned</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()</span>
+<span class="n">y_train_cleaned</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="s1">&#39;yes&#39;</span> <span class="k">else</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">y_train</span><span class="o">.</span><span class="n">tolist</span><span class="p">()]</span>
+<span class="n">y_test_cleaned</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="s1">&#39;yes&#39;</span> <span class="k">else</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">y_test</span><span class="o">.</span><span class="n">tolist</span><span class="p">()]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Developing-Models-">Developing Models <a name="models" /><a class="anchor-link" href="#Developing-Models-">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Naive/Baseline-model-">Naive/Baseline model <a name="naive" /><a class="anchor-link" href="#Naive/Baseline-model-">&#182;</a></h3><p>A naive model would be to always predict a student would fail XOR succeed, depending on which is higher in the training set.</p>
+<p>It makes no sense but it still gives us a baseline to evaluate other models against. If the models we come up with perform worse than this naive model, then, we know that there must be some bug in our implementation!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[149]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">NaiveModel</span><span class="p">:</span>
+    
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+    
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="n">preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">pred</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
+        <span class="k">return</span> <span class="n">preds</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="An-Aside:-">An Aside: <a name="classifiers" /><a class="anchor-link" href="#An-Aside:-">&#182;</a></h3><p>There are 3 different ways to build classifiers.</p>
+<p>The first way is by using <strong>generative models</strong> which <strong>assumes sample points originate from some probability distributions</strong>. One such example is linear discriminant analysis (LDA).</p>
+<p>The second way is by using <strong>discriminative models</strong>, where we model the posterior probability $P(Y|X)$ directly. This is useful when we care about the <strong>confidence of our prediction</strong>. Besides that, probabilities provide more granular information. One application is <a href="http://www.pysim.me/projects/sentiment.html" target="_blank"> sentiment analysis</a>.</p>
+<p>The third and last way is by <strong>finding decision boundary directly</strong>—much like how humans' reasoning by analogy. This method does not utilize posterior probability. One class of algorithms that does this is the kernel methods (e.g. SVM)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Implementing-Logistic-Regression-from-Scratch-">Implementing Logistic Regression from Scratch <a name="logReg" /><a class="anchor-link" href="#Implementing-Logistic-Regression-from-Scratch-">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong> Defining the sigmoid function </strong></p>
+<p>The sigmoid function ensures that any real number $\mathbb{R}$ is mapped to a number from 0 to 1.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[150]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Regularized Cost function </strong></p>
+<p>$l(\beta) = \lambda\|\beta\|^2_2 -\sum_{i=1}^n \left[y_i\log\mu_i + (1-y_i)\log(1-\mu_i)\right]$</p>
+<p>where $\mu_i = 1/(1+\exp(-\beta x_i))$, and $\lambda > 0$ is the regularization parameter.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[151]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># translate to code</span>
+<span class="k">def</span> <span class="nf">regCostFunction</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">reg</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
+    <span class="n">J</span> <span class="o">=</span> <span class="p">(</span><span class="n">reg</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">w</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">h</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">h</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">y</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">J</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Optimization-Algorithm-">Optimization Algorithm <a name="gradientDescent" /><a class="anchor-link" href="#Optimization-Algorithm-">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>After identifying our application (classification) and selecting our model (logistic regression), our problem now turns into an optimization problem.</p>
+<p>Optimization problems can be divided into unconstrained and constrained problems. We solve the former by finding a $\beta$ that minimizes (or maximizes) a continuous objective function $l(\beta)$.</p>
+<p>If the function is convex, then we are guaranteed to find a global minimum (or maximum). Otherwise, we can only find the local optima.</p>
+<p>Subsequently, we need to decide on the optimization algorithm (e.g. gradient descent, simplex, SVD).</p>
+<p>For logistic regression, we will implement both gradient descent (GD) and stochastic gradient descent (SGD).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[152]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">gradientDescent</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">num_iters</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">costs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_iters</span><span class="p">):</span>
+        <span class="n">rate</span> <span class="o">=</span> <span class="n">alpha</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">alpha</span><span class="o">*</span><span class="n">reg</span><span class="o">*</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
+        <span class="n">grad</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">reg</span><span class="o">*</span><span class="n">w</span> <span class="o">-</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">h</span><span class="o">-</span><span class="n">y</span><span class="p">))</span><span class="o">/</span><span class="n">n</span>
+        <span class="n">w</span> <span class="o">+=</span> <span class="n">rate</span><span class="o">*</span><span class="n">grad</span>
+        <span class="n">costs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">regCostFunction</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">reg</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">w</span><span class="p">,</span> <span class="n">costs</span><span class="p">,</span> <span class="n">errors</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[153]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">sgd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">num_iters</span><span class="o">=</span><span class="mi">10000</span><span class="p">):</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">costs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_iters</span><span class="p">):</span>
+        <span class="n">rate</span> <span class="o">=</span> <span class="n">alpha</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">alpha</span><span class="o">*</span><span class="n">reg</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">yi</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">xi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">xi</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        <span class="n">grad</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">reg</span><span class="o">*</span><span class="n">w</span> <span class="o">+</span> <span class="n">xi</span><span class="o">*</span><span class="p">(</span><span class="n">yi</span><span class="o">-</span><span class="n">h</span><span class="p">))</span><span class="o">/</span><span class="n">n</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">+</span> <span class="n">rate</span><span class="o">*</span><span class="n">grad</span>
+        <span class="n">costs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">regCostFunction</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">reg</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">w</span><span class="p">,</span> <span class="n">costs</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Making-Predictions-with-Logistic-Regression">Making Predictions with Logistic Regression<a class="anchor-link" href="#Making-Predictions-with-Logistic-Regression">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We are trying to make 0-1 classfication. However, the output of our logistic regression model is a real number $R$.</p>
+<p>Thus, we need to somehow convert the real number into either 0 or 1. The <code>'predict'</code> function below does just that by converting values greater than or equal to threshold to <code>'1'</code> and any other values to <code>'0'</code>.</p>
+<p>The threshold should be picked by analyzing the <strong>ROC Curves</strong>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[154]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">X</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">threshold</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Defining a function to be used to do training and prediction</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[159]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">train_predict</span><span class="p">(</span><span class="n">clf</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training &quot;</span> <span class="o">+</span> <span class="n">clf</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
+    <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_cleaned</span><span class="p">,</span> <span class="n">y_train_cleaned</span><span class="p">)</span>
+    <span class="n">y_test_preds</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_cleaned</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test_cleaned</span><span class="p">,</span> <span class="n">y_test_preds</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test_cleaned</span><span class="p">,</span> <span class="n">y_test_preds</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Consolidating-into-a-Python-Class-">Consolidating into a Python Class <a name="logRegClass" /><a class="anchor-link" href="#Consolidating-into-a-Python-Class-">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Abstraction - it's a good software engineering practice.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[211]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">accuracy_score</span>
+
+<span class="k">class</span> <span class="nc">LogisticRegressionModel</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="c1"># if debug True, then plot cost function</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">debug</span>
+        
+    <span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="p">))</span>
+        
+    <span class="k">def</span> <span class="nf">regCostFunction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">))</span>
+        <span class="n">J</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">h</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">h</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">J</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    
+    <span class="k">def</span> <span class="nf">gradientDescent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">costs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_iters</span><span class="p">):</span>
+            <span class="n">rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="o">*</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">))</span>
+            <span class="n">grad</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">h</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">))</span><span class="o">/</span><span class="n">n</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">+=</span> <span class="n">rate</span><span class="o">*</span><span class="n">grad</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">costs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regCostFunction</span><span class="p">())</span>
+        
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">num_iters</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span> <span class="o">=</span> <span class="n">y_train</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reg</span> <span class="o">=</span> <span class="n">reg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_iters</span> <span class="o">=</span> <span class="n">num_iters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span> <span class="o">=</span> <span class="n">threshold</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gradientDescent</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">costs</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">predict_probs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">X</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict_probs</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span>
+        
+    <span class="k">def</span> <span class="nf">predict_acc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">preds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Sklearn's-Logistic-Regression">Sklearn's Logistic Regression<a class="anchor-link" href="#Sklearn's-Logistic-Regression">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[203]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_predict</span><span class="p">(</span><span class="n">LogisticRegression</span><span class="p">())</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Training LogisticRegression
+0.727272727273
+0.816326530612
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[196]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">roc_curve</span>
+<span class="n">logReg</span> <span class="o">=</span> <span class="n">LogisticRegressionModel</span><span class="p">()</span>
+<span class="n">logReg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_cleaned</span><span class="p">,</span> <span class="n">y_train_cleaned</span><span class="p">)</span>
+<span class="n">prob_preds</span> <span class="o">=</span> <span class="n">logReg</span><span class="o">.</span><span class="n">predict_probs</span><span class="p">(</span><span class="n">X_test_cleaned</span><span class="p">)</span>
+<span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">thresholds</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test_cleaned</span><span class="p">,</span> <span class="n">prob_preds</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[197]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fpr</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[197]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([ 0.        ,  0.03225806,  0.06451613,  0.06451613,  0.12903226,
+        0.12903226,  0.16129032,  0.16129032,  0.22580645,  0.22580645,
+        0.25806452,  0.25806452,  0.29032258,  0.29032258,  0.32258065,
+        0.32258065,  0.35483871,  0.35483871,  0.38709677,  0.38709677,
+        0.48387097,  0.48387097,  0.5483871 ,  0.5483871 ,  0.58064516,
+        0.58064516,  0.61290323,  0.61290323,  0.70967742,  0.70967742,
+        0.74193548,  0.74193548,  0.80645161,  0.80645161,  0.90322581,
+        0.90322581,  0.96774194,  0.96774194,  1.        ])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[198]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tpr</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[198]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([ 0.        ,  0.        ,  0.        ,  0.02941176,  0.02941176,
+        0.25      ,  0.25      ,  0.30882353,  0.30882353,  0.33823529,
+        0.33823529,  0.35294118,  0.35294118,  0.38235294,  0.38235294,
+        0.45588235,  0.45588235,  0.52941176,  0.52941176,  0.70588235,
+        0.70588235,  0.77941176,  0.77941176,  0.79411765,  0.79411765,
+        0.82352941,  0.82352941,  0.88235294,  0.88235294,  0.89705882,
+        0.89705882,  0.91176471,  0.91176471,  0.95588235,  0.95588235,
+        0.97058824,  0.97058824,  1.        ,  1.        ])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[199]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">thresholds</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[199]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([ 6.30110599,  5.30110599,  4.83449239,  4.55418109,  4.47634447,
+        2.99043327,  2.88715475,  2.62853414,  2.6187242 ,  2.53424666,
+        2.5260958 ,  2.47515257,  2.43631064,  2.35384342,  2.31854082,
+        1.90412776,  1.88988618,  1.63619931,  1.54352431,  1.2078344 ,
+        0.95836508,  0.49983536,  0.42529642,  0.39680979,  0.29168664,
+        0.05115115, -0.03241426, -0.37534551, -0.7486617 , -0.77813971,
+       -0.85282748, -0.85706101, -0.93276021, -1.50056173, -3.25050915,
+       -3.34659818, -4.17666205, -5.5871968 , -7.71450568])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: plot ROC curves</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[212]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_predict</span><span class="p">(</span><span class="n">LogisticRegressionModel</span><span class="p">())</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Training LogisticRegressionModel
+0.686868686869
+0.77037037037
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Support-Vector-Machines-">Support Vector Machines <a name="svm" /><a class="anchor-link" href="#Support-Vector-Machines-">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The next algorithm we are exploring is called the Support Vector Machines (SVMs).</p>
+<p>Fundamentally, SVMs try to construct a decision boundary between the positive and negative samples in a way such that the margin between the support vectors and the hyperplane is maximized.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[201]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="k">import</span> <span class="n">SVC</span>
+<span class="n">train_predict</span><span class="p">(</span><span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Training SVC
+0.69696969697
+0.810126582278
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In case you were wondering, <code>'rbf'</code> stands for radial basis function kernel (aka Gaussian kernel).</p>
+<p>The kernel trick is used in conjunction with SVMs to significantly speed up computations.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Implementing-k-Nearest-Neighbors-">Implementing k-Nearest Neighbors <a name="knn" /><a class="anchor-link" href="#Implementing-k-Nearest-Neighbors-">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The idea behind kNN classification is very simple. Given a new sample point, you look at the <code>'k'</code> 'nearest' sample points in the training set and assign the majority class to that point.</p>
+<p>'Nearest' is based on some distance metric such as Euclidean distance or Manhattan distance.</p>
+<p><code>'k'</code> varies per application. We can find the optimal value by grid search.</p>
+<p><strong>Advantages of kNN</strong>:
+kNN is simple and there's a theorem that says that it works well for large datasets.</p>
+<p><strong>Disadvantages of kNN</strong>:
+The computational complexity of classifying a new data point grows linearly with the number of samples in the training set. This is because kNN has no ~training step~.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here, we are using the Euclidean distance as our metric:</p>
+$$distance = \sqrt{(x_i-x_j)^2 + (y_i-y_j)^2 + (z_i-z_j)^2 + ...} $$<p>where the x, y, z etc with subscripts <code>'i'</code> denote the features of a sample point $i \neq j$ in the data set.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[225]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">kNearestNeighborsModel</span><span class="p">:</span>
+    
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">9</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_train</span> <span class="o">=</span> <span class="n">y_train</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span>
+        
+    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt1</span><span class="p">,</span> <span class="n">pt2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">pt1</span> <span class="o">-</span> <span class="n">pt2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+    
+    <span class="k">def</span> <span class="nf">majority_vote</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">y_train</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">])</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+        
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="n">preds</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">pt1</span> <span class="ow">in</span> <span class="n">X</span><span class="p">:</span>
+            <span class="n">dists</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">pt1</span><span class="p">,</span> <span class="n">pt2</span><span class="p">)</span> <span class="k">for</span> <span class="n">pt2</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="p">])</span>
+            <span class="n">closest_indices</span> <span class="o">=</span> <span class="n">dists</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[:</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">]</span>
+            <span class="n">preds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">majority_vote</span><span class="p">(</span><span class="n">closest_indices</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">preds</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[230]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_predict</span><span class="p">(</span><span class="n">kNearestNeighborsModel</span><span class="p">())</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Training kNearestNeighborsModel
+0.727272727273
+0.82119205298
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong> Sklearn's kNN </strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[229]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="k">import</span> <span class="n">KNeighborsClassifier</span>
+
+<span class="n">train_predict</span><span class="p">(</span><span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">9</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Training KNeighborsClassifier
+0.717171717172
+0.810810810811
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Choosing-the-Best-Model-">Choosing the Best Model <a name="bestModel" /><a class="anchor-link" href="#Choosing-the-Best-Model-">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Model-Performance-Metrics-">Model Performance Metrics <a name="metric" /><a class="anchor-link" href="#Model-Performance-Metrics-">&#182;</a></h3>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
