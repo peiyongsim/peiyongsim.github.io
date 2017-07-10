@@ -1,3 +1,3 @@
-hello feature
-
+New feature
+Another feature
 Even better feature!
