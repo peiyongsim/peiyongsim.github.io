@@ -1,2 +1,2 @@
-This is the newest feature.
-this is another feature.
+New feature
+Another feature
