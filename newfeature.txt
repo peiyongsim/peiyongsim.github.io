@@ -1,1 +1,2 @@
-hello feature
+This is the newest feature.
+this is another feature.
